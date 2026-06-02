@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useStore } from '@/store/useStore';
-import { Settings2, User, Bell, Globe, Shield, Volume2, Sun, Moon, Eye, Languages, LogOut, ChevronRight, Sparkles, Palette, Wifi } from 'lucide-react';
+import { Settings2, User, Bell, Volume2, Eye, Languages, LogOut, ChevronRight, Sparkles, Wifi, Mic, AlertCircle } from 'lucide-react';
 import type { Language } from '@/types';
 
 const settingsSections = [
@@ -15,6 +15,17 @@ const settingsSections = [
       { id: 'name', label: 'Student Name', value: 'Priya Sharma', type: 'text' },
       { id: 'grade', label: 'Grade', value: '8th Standard', type: 'text' },
       { id: 'school', label: 'School', value: 'Rural Excellence Academy', type: 'text' },
+    ],
+  },
+  {
+    id: 'voice',
+    label: 'Voice & Speech',
+    icon: Mic,
+    settings: [
+      { id: 'auto-speak', label: 'Auto-read AI Responses', value: 'On', type: 'toggle' },
+      { id: 'voice-speed', label: 'Speech Speed', value: 'Normal (0.9x)', type: 'select' },
+      { id: 'voice-pitch', label: 'Speech Pitch', value: 'Friendly (1.1x)', type: 'select' },
+      { id: 'voice-input', label: 'Voice Input', value: 'Chrome/Edge/Safari', type: 'text' },
     ],
   },
   {
@@ -162,6 +173,40 @@ export function Settings() {
                           {lang.charAt(0).toUpperCase() + lang.slice(1)}
                         </button>
                       ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Voice Section Info */}
+                {activeSection === 'voice' && (
+                  <div className="mt-6 space-y-4">
+                    <div className="p-4 bg-accent/10 rounded-xl border border-accent/20">
+                      <div className="flex items-center gap-3">
+                        <Volume2 className="w-6 h-6 text-accent" />
+                        <div>
+                          <div className="text-white font-medium">Web Speech API</div>
+                          <div className="text-white/50 text-sm">Powered by your browser's built-in speech engine</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-4 bg-white/5 rounded-xl">
+                      <h4 className="text-white font-medium mb-2">Supported Languages</h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        {['English (en-US)', 'हिन्दी (hi-IN)', 'తెలుగు (te-IN)', 'தமிழ் (ta-IN)', 'ಕನ್ನಡ (kn-IN)'].map((lang) => (
+                          <div key={lang} className="flex items-center gap-2 p-2 rounded-lg bg-white/5 text-white/70 text-sm">
+                            <Mic className="w-3 h-3 text-accent" />
+                            {lang}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="p-4 bg-warning/10 rounded-xl border border-warning/20">
+                      <div className="flex items-start gap-2 text-warning text-sm">
+                        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                        <div>
+                          <strong>Note:</strong> Speech recognition works best in Chrome, Edge, or Safari. Speech synthesis is supported in all modern browsers.
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
